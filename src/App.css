@@ -1,38 +1,61 @@
-.App {
+.to-do-list {
   text-align: center;
+  margin-top: 10em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  text-align: center;
+  font-size: 4em;
+}
+.check-box {
+  margin-right: 1em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.start-button {
+  margin-right: 1em;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.add-button {
+  margin-right: 0.2em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.up-button {
+  margin-right: 1em;
+}
+.down-button {
+  margin-right: 1em;
+}
+
+.input-task {
+  align-items: center;
+  font-size: 1.5em;
+  border-radius: 5px;
+  /* margin-right: 1em; */
+  margin-bottom: 1em;
+}
+
+.input-group-append {
+  margin-top: 0.5em;
+}
+
+input[type="text"] {
+  width: 20em;
+}
+
+input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+}
+
+ol {
+  padding: 0;
+}
+
+li {
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+}
+.text {
+  flex: 1;
 }
