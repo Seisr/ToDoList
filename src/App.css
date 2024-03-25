@@ -41,6 +41,7 @@ h1 {
 
 input[type="text"] {
   width: 20em;
+  padding-left: 0.5em;
 }
 
 input[type="checkbox"]:checked + span {

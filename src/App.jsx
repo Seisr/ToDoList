@@ -4,42 +4,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 function App() {
+  const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState(() => {
     const localValue = localStorage.getItem("items");
     return JSON.parse(localValue);
   });
-  const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(tasks));
   }, [tasks]);
 
-  function handleProgress(id) {
+  function toggleProgress(id) {
     const updatedTasks = tasks.map((task) => {
-      if (task.id === id && task.progress == "Incomplete") {
+      if (task.id === id && task.progress === "Incomplete") {
         return { ...task, progress: "In-progress" };
-      } else if (task.id === id && task.progress == "In-progress") {
+      } else if (task.id === id && task.progress === "In-progress") {
         return { ...task, progress: "Incomplete" };
       }
       return task;
     });
     setTasks(updatedTasks);
   }
-  function handleComplete(id) {
-    const updatedTask = tasks.map((task) => {
-      if (task.id === id && task.progress == "In-progress") {
-        return { ...task, progress: "Completed" };
-      }
-      return task;
-    });
-    setTasks(updatedTask);
-  }
 
   function toggleComplete(id, completed) {
     const updatedTask = tasks.map((task) => {
-      if (task.id === id && task.progress == "In-progress") {
+      if (task.id === id && task.progress === "In-progress") {
         return { ...task, progress: "Completed", completed };
-      } else if (task.id === id && task.progress == "Completed") {
+      } else if (task.id === id && task.progress === "Completed") {
         return { ...task, progress: "Incomplete", completed };
       }
       return task;
@@ -141,13 +132,21 @@ function App() {
               ></input>
               <span className="text">{task.name}</span>
               <span className="text">{task.progress}</span>
-
-              <button
-                className="start-button btn btn-secondary"
-                onClick={() => handleProgress(task.id)}
-              >
-                Start
-              </button>
+              {task.progress === "Incomplete" ? (
+                <button
+                  className="start-button btn btn-success"
+                  onClick={() => toggleProgress(task.id)}
+                >
+                  Start
+                </button>
+              ) : (
+                <button
+                  className="start-button btn btn-info"
+                  onClick={() => toggleProgress(task.id)}
+                >
+                  Un-start
+                </button>
+              )}
               <button
                 className="up-button btn btn-outline-secondary"
                 onClick={() => moveTaskUp(index)}
@@ -162,7 +161,7 @@ function App() {
               </button>
               <button
                 className="delete-button btn btn-danger"
-                onClick={() => deleteTask(task)}
+                onClick={() => deleteTask(task.id)}
               >
                 Delete
               </button>
