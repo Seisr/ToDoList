@@ -1,62 +1,68 @@
 .to-do-list {
   text-align: center;
   margin-top: 10em;
-}
+  & h1 {
+    text-align: center;
+    font-size: 4em;
+  }
+  & .input-task {
+    align-items: center;
+    font-size: 1.5em;
+    border-radius: 5px;
+    margin-bottom: 1em;
 
-h1 {
-  text-align: center;
-  font-size: 4em;
-}
-.check-box {
-  margin-right: 1em;
-}
+    & input[type="text"] {
+      width: 20em;
+      padding-left: 0.5em;
+    }
 
-.start-button {
-  margin-right: 1em;
-  color: white;
-}
+    & .input-group-append {
+      margin-top: 0.5em;
 
-.add-button {
-  margin-right: 0.2em;
-}
+      & .add-button {
+        margin-right: 0.5em;
+      }
 
-.up-button {
-  margin-right: 1em;
-}
-.down-button {
-  margin-right: 1em;
-}
+      & .clear-completed-button {
+        margin-right: 0.5em;
+      }
+    }
+  }
 
-.input-task {
-  align-items: center;
-  font-size: 1.5em;
-  border-radius: 5px;
-  /* margin-right: 1em; */
-  margin-bottom: 1em;
-}
+  & ol {
+    padding: 0;
 
-.input-group-append {
-  margin-top: 0.5em;
-}
+    & li {
+      font-size: 2em;
+      display: flex;
+      align-items: center;
 
-input[type="text"] {
-  width: 20em;
-  padding-left: 0.5em;
-}
+      & .check-box {
+        width: 1.3em;
+        height: 1.3em;
+        margin: 0 1em 0.5em 0;
+      }
 
-input[type="checkbox"]:checked + span {
-  text-decoration: line-through;
-}
+      & input[type="checkbox"]:checked + span {
+        text-decoration: line-through;
+      }
 
-ol {
-  padding: 0;
-}
+      & .text {
+        flex: 1;
+      }
 
-li {
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-}
-.text {
-  flex: 1;
+      & .start-button {
+        margin-right: 1em;
+        color: white;
+      }
+
+      & .up-button {
+        margin-right: 1em;
+      }
+
+      & .down-button {
+        margin-right: 1em;
+      }
+    }
+  }
 }

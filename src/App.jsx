@@ -14,6 +14,34 @@ function App() {
     localStorage.setItem("items", JSON.stringify(tasks));
   }, [tasks]);
 
+  function handleInputChange(event) {
+    setNewTask(event.target.value);
+  }
+
+  function addTask() {
+    if (newTask.trim() !== "") {
+      setTasks((currentTask) => [
+        ...currentTask,
+        {
+          id: crypto.randomUUID(),
+          name: newTask,
+          completed: false,
+          progress: "Incomplete",
+        },
+      ]);
+      setNewTask("");
+    }
+  }
+
+  function clearCompletedTask() {
+    const updatedTasks = tasks.filter((task) => task.progress !== "Completed");
+    setTasks(updatedTasks);
+  }
+
+  function clearAllTask() {
+    setTasks([]);
+  }
+
   function toggleProgress(id) {
     const updatedTasks = tasks.map((task) => {
       if (task.id === id && task.progress === "Incomplete") {
@@ -36,61 +64,33 @@ function App() {
       return task;
     });
     setTasks(updatedTask);
-    // setTasks((currentTodos) => {
-    //   return currentTodos.map((todo) => {
-    //     if (todo.id === id) {
-    //       return { ...todo, completed };
-    //     }
-    //     return todo;
-    //   });
-    // });
+  }
+
+  function moveTaskUp(index) {
+    if (index > 0) {
+      const updatedTasks = [...tasks];
+      [updatedTasks[index], updatedTasks[index - 1]] = [
+        updatedTasks[index - 1],
+        updatedTasks[index],
+      ];
+      setTasks(updatedTasks);
+    }
+  }
+
+  function moveTaskDown(index) {
+    if (index < tasks.length - 1) {
+      const updatedTasks = [...tasks];
+      [updatedTasks[index], updatedTasks[index + 1]] = [
+        updatedTasks[index + 1],
+        updatedTasks[index],
+      ];
+      setTasks(updatedTasks);
+    }
   }
 
   function deleteTask(id) {
     const updatedTasks = tasks.filter((task, i) => task.id !== id);
     setTasks(updatedTasks);
-  }
-
-  function handleInputChange(event) {
-    setNewTask(event.target.value);
-  }
-  function addTask() {
-    if (newTask.trim() !== "") {
-      setTasks((currentTask) => [
-        ...currentTask,
-        {
-          id: crypto.randomUUID(),
-          name: newTask,
-          completed: false,
-          progress: "Incomplete",
-        },
-      ]);
-      setNewTask("");
-    }
-  }
-  function clearTask() {
-    setTasks([]);
-  }
-
-  function moveTaskUp(id) {
-    if (id > 0) {
-      const updatedTasks = [...tasks];
-      [updatedTasks[id], updatedTasks[id - 1]] = [
-        updatedTasks[id - 1],
-        updatedTasks[id],
-      ];
-      setTasks(updatedTasks);
-    }
-  }
-  function moveTaskDown(id) {
-    if (id < tasks.length - 1) {
-      const updatedTasks = [...tasks];
-      [updatedTasks[id], updatedTasks[id + 1]] = [
-        updatedTasks[id + 1],
-        updatedTasks[id],
-      ];
-      setTasks(updatedTasks);
-    }
   }
 
   return (
@@ -113,10 +113,16 @@ function App() {
               Add
             </button>
             <button
-              className="clear-button btn btn-warning btn-lg"
-              onClick={clearTask}
+              className="clear-completed-button btn btn-outline-warning btn-lg"
+              onClick={clearCompletedTask}
             >
-              Clear
+              Clear Completed Task
+            </button>
+            <button
+              className="clear-all-button btn btn-warning btn-lg"
+              onClick={clearAllTask}
+            >
+              Clear All
             </button>
           </div>
         </div>
